@@ -31,13 +31,13 @@ It covers the **full security lifecycle**:
 
 ```mermaid
 flowchart TD
-    A[Attacker/Kali VM] -->|Port Scans, Brute Force| B[Raspberry Pi Honeypot]
-    A -->|Suspicious Traffic| C[Raspberry Pi IDS (Suricata)]
-    B -->|Attack Logs| D[Log Collector (ELK Stack)]
+    A[Attacker / Kali VM] -->|Port Scans, Brute Force| B[Raspberry Pi Honeypot]
+    A -->|Suspicious Traffic| C[Raspberry Pi IDS Suricata]
+    B -->|Attack Logs| D[Log Collector - ELK Stack]
     C -->|Alerts| D
     E[Packet Capture Node] -->|PCAP Files| D
     D -->|Dashboards & Alerts| F[Analyst Laptop / Kibana UI]
-```
+
 
 📸 Replace placeholder with real diagram:
 ![Architecture Diagram](assets/screenshots/topology_diagram.png)
