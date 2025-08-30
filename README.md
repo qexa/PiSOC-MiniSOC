@@ -29,6 +29,8 @@ It covers the **full security lifecycle**:
 
 🏗️ Architecture
 
+## 🏗️ Architecture  
+
 ```mermaid
 flowchart TD
     A[Attacker / Kali VM] -->|Port Scans, Brute Force| B[Raspberry Pi Honeypot]
@@ -38,9 +40,6 @@ flowchart TD
     E[Packet Capture Node] -->|PCAP Files| D
     D -->|Dashboards & Alerts| F[Analyst Laptop / Kibana UI]
 
-
-📸 Replace placeholder with real diagram:
-![Architecture Diagram](assets/screenshots/topology_diagram.png)
 
 ---
 
