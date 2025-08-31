@@ -21,7 +21,10 @@ Expandable to firewalling, malware sandboxing, or cloud SIEM integrations.
 
 
 🏗️ Architecture
-file:///C:/Users/alexa/Downloads/pisoc_architecture.html
+
+<img width="869" height="788" alt="image" src="https://github.com/user-attachments/assets/8225e392-02f6-4443-b151-c5ff9eb0b232" />
+
+
 Data Flow:
 
 Attacker/test traffic hits Raspberry Pi honeypot and IDS sensors
