@@ -21,8 +21,7 @@ Expandable to firewalling, malware sandboxing, or cloud SIEM integrations.
 
 
 🏗️ Architecture
-<img width="876" height="780" alt="image" src="https://github.com/user-attachments/assets/a9b40ed9-1293-4e7f-8f40-aed1d18b5f20" />
-
+file:///C:/Users/alexa/Downloads/pisoc_architecture.html
 Data Flow:
 
 Attacker/test traffic hits Raspberry Pi honeypot and IDS sensors
@@ -155,21 +154,3 @@ PiSOC/
     ├── kibana_dashboard.png        # Main dashboard
     ├── suricata_alerts.png         # IDS alerts view
     └── cowrie_session.png          # Honeypot logs
-
-📣 How to Showcase This Project
-For Your Resume
-Raspberry Pi Mini-SOC Lab – Built a portable SOC using Raspberry Pi 4, Suricata IDS, Cowrie honeypot, ELK SIEM, and tcpdump packet capture. Developed dashboards, correlation rules, and attack demos (Nmap, Hydra, malware download) to demonstrate SOC analyst workflows and detection engineering skills.
-For GitHub
-
-Pin this repo on your GitHub profile
-Add topics: cybersecurity, raspberry-pi, soc, ids, honeypot, siem, suricata, elk
-Include screenshots – Replace placeholders with real dashboards
-Add releases – Package configs for easy download
-
-For LinkedIn
-Share your project with a professional post highlighting the practical skills demonstrated.
-
-🔗 License & Contact
-License: MIT License © 2025
-Questions? Open an issue or connect with me on LinkedIn.
-Want to collaborate? Fork this repo and submit a pull request with your enhancements!
