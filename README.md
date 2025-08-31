@@ -1,8 +1,8 @@
 PiSOC: Raspberry Pi Mini Security Operations Center
 A Hands-On Cybersecurity Portfolio Project
-Show Image
-Show Image
-Show Image
+[Show Image](https://img.shields.io/badge/Platform-Raspberry%20Pi%204%2F5-red)
+[Show Image](https://img.shields.io/badge/Security-SOC%20Lab-green)
+[Show Image](https://img.shields.io/badge/License-MIT-blue)
 
 📖 Overview
 This project demonstrates how to build a Mini Security Operations Center (SOC) on affordable Raspberry Pi 4/5 hardware.
