@@ -1,0 +1,127 @@
+# PiSOC Logstash Pipeline Configuration
+# File: /etc/logstash/conf.d/pisoc.conf
+
+input {
+  # Suricata EVE JSON logs
+  file {
+    path => "/var/log/suricata/eve.json"
+    start_position => "beginning"
+    codec => "json"
+    type => "suricata"
+    tags => ["suricata", "ids"]
+  }
+  
+  # Cowrie honeypot logs
+  file {
+    path => "/opt/cowrie/var/log/cowrie/cowrie.json"
+    start_position => "beginning" 
+    codec => "json"
+    type => "cowrie"
+    tags => ["cowrie", "honeypot"]
+  }
+  
+  # System logs via rsyslog
+  udp {
+    port => 5514
+    type => "syslog"
+    tags => ["syslog", "system"]
+  }
+  
+  # Filebeat input
+  beats {
+    port => 5044
+    type => "filebeat"
+  }
+}
+
+filter {
+  # Process Suricata logs
+  if [type] == "suricata" {
+    if [event_type] == "alert" {
+      mutate {
+        add_field => { "severity" => "high" }
+        add_tag => ["alert"]
+      }
+    }
+    
+    if [src_ip] {
+      geoip {
+        source => "src_ip"
+        target => "src_geoip"
+      }
+    }
+    
+    if [dest_ip] {
+      geoip {
+        source => "dest_ip" 
+        target => "dest_geoip"
+      }
+    }
+  }
+  
+  # Process Cowrie honeypot logs
+  if [type] == "cowrie" {
+    if [eventid] == "cowrie.login.failed" {
+      mutate {
+        add_field => { "severity" => "medium" }
+        add_tag => ["failed_login", "brute_force"]
+      }
+    }
+    
+    if [eventid] == "cowrie.session.connect" {
+      mutate {
+        add_field => { "severity" => "medium" }
+        add_tag => ["new_session", "honeypot_hit"]
+      }
+    }
+    
+    if [src_ip] {
+      geoip {
+        source => "src_ip"
+        target => "src_geoip"
+      }
+    }
+  }
+  
+  # Process syslog messages
+  if [type] == "syslog" {
+    grok {
+      match => { 
+        "message" => "%{SYSLOGTIMESTAMP:timestamp} %{IPORHOST:host} %{PROG:program}(?:\[%{POSINT:pid}\])?: %{GREEDYDATA:log_message}" 
+      }
+    }
+    
+    # SSH failed login detection in syslog
+    if [program] == "sshd" and [log_message] =~ /Failed password/ {
+      mutate {
+        add_field => { "severity" => "medium" }
+        add_tag => ["ssh_fail", "brute_force_attempt"]
+      }
+    }
+  }
+  
+  # Add timestamp
+  date {
+    match => [ "timestamp", "ISO8601", "yyyy-MM-dd HH:mm:ss" ]
+    target => "@timestamp"
+  }
+  
+  # Clean up fields
+  mutate {
+    remove_field => ["@version", "beat", "offset", "prospector"]
+  }
+}
+
+output {
+  # Send to Elasticsearch
+  elasticsearch {
+    hosts => ["localhost:9200"]
+    index => "pisoc-%{+YYYY.MM.dd}"
+    template_overwrite => true
+    template_pattern => "pisoc-*"
+    template => "/etc/logstash/templates/pisoc-template.json"
+  }
+  
+  # Debug output (comment out in production)
+  # stdout { codec => rubydebug }
+}

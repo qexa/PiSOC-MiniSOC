@@ -1,0 +1,4 @@
+#!/bin/bash
+# PCAP rotation script for PiSOC
+mkdir -p /var/log/pcaps
+tcpdump -i eth0 -w /var/log/pcaps/capture_%Y%m%d_%H%M%S.pcap -C 50 -W 20 -Z root
