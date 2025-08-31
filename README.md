@@ -25,17 +25,8 @@ It covers the **full security lifecycle**:
 
 🏗️ Architecture  
 
-```mermaid
-flowchart TD
-    A[Attacker / Kali VM] -->|Port Scans, Brute Force| B[Raspberry Pi Honeypot]
-    A -->|Suspicious Traffic| C[Raspberry Pi IDS Suricata]
-    B -->|Attack Logs| D[Log Collector - ELK Stack]
-    C -->|Alerts| D
-    E[Packet Capture Node] -->|PCAP Files| D
-    D -->|Dashboards & Alerts| F[Analyst Laptop / Kibana UI]
+<img width="881" height="788" alt="Screenshot 2025-08-31 092912" src="https://github.com/user-attachments/assets/03696e75-3279-450d-995b-4dac8a454bdd" />
 
-
-📸 Fallback diagram (in case Mermaid doesn’t render):
 
 
 🔧 Hardware & Requirements
